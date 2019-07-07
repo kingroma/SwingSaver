@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="loginCheckInterceptor" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="loginCheckInterceptor" class="com.swing.saver.web.interceptor.SessionCheckInterceptor">
+        <property name="urlList"><!-- 로그인 체크하는 url 기입 -->
+            <list>
+                <value>/group</value>
+                <value>/web/mypage</value>
+            </list>
+        </property>
+        <property name="loginAfterUrlLit"><!-- 로그인 후 접속 불가 url 기입 -->
+            <list>
+                <value>/loginForm</value>
+                <value>/web/user/member</value>
+            </list>
+        </property>
+    </bean>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html; charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json; charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+    <bean id="jsonView"
+          class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+        <property name="contentType"
+                  value="application/json;charset=UTF-8"></property>
+    </bean>
+
+    <context:component-scan base-package="com.swing.saver.web">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Service" />
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Repository" />
+    </context:component-scan>
+
+    <mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/"></mvc:resources>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/"></mvc:resources>
+    <mvc:resources mapping="/image/**" location="/WEB-INF/resources/image/"></mvc:resources>
+    <mvc:resources mapping="/fonts/**" location="/WEB-INF/resources/fonts/"></mvc:resources>
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"></mvc:resources>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:/prop/config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10485760" /> <!-- 10mb 제한 -->
+    </bean>
+    <bean id="uploadPath" class="java.lang.String">
+        <constructor-arg value="C://"></constructor-arg>
+        <!-- <constructor-arg value="/Users/mac/Downloads/Sping/src/main/webapp/WEB-INF/resources/image/upload/"></constructor-arg> -->
+        <!-- <constructor-arg value="../resource"></constructor-arg> -->
+    </bean>
+</beans>
