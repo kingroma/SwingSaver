@@ -10,14 +10,14 @@
 
     <%@include file="/WEB-INF/views/web/inc/navi.jsp"%>
     <div class="form-page">
-        <form class="form-signin" name="forms1" method="POST">
+        <form class="form-signin" id='forms1' name="forms1" method="POST">
             <h1 class="text-center">LOGIN</h1>
             <div class="question">
                 <input type="text" id="email" name="email" required="" onchange="emailChange()" onfocus="$('#emailLabel').css('display','none');" onkeyup="emailChange()"  oninput="emailChange()">
                 <label id='emailLabel'><img src="/image/id-icon.png" width="100%">아이디</label>
             </div>
             <div class="question">
-                <input type="password" id="password" name="password" required="" onchange="passwordChange" onfocus="$('#passwordLabel').css('display','none');" onkeyup="passwordChange()"  oninput="passwordChange()">
+                <input type="password" id="password" name="password" required="" onchange="passwordChange" onfocus="$('#passwordLabel').css('display','none');" onkeyup="passwordChange(event)"  oninput="passwordChange(event)">
                 <label id='passwordLabel'><img src="/image/pw-icon.png" width="100%">비밀번호</label>
             </div>
 
@@ -47,7 +47,7 @@
     console.log(message);
     $(document).ready(function(){
         $("#login").click(function(){
-            var email = $("#email").val();
+            /* var email = $("#email").val();
             var password=$("#password").val();
 
             if(email == ""){
@@ -61,16 +61,38 @@
                 return;
             }
             document.forms1.action = "/login";
-            document.forms1.submit();
+            document.forms1.submit(); */
+        	fn_login();
         });
     });
     
+    function fn_login(){
+    	var email = $("#email").val();
+        var password=$("#password").val();
+
+        if(email == ""){
+            alert("이메일 주소를 입력하세요");
+            $("#email").focus();
+            return;
+        }
+        if(password == ""){
+            alert("비밀번호를 입력하세요");
+            $("#password").focus();
+            return;
+        }
+        document.forms1.action = "/login";
+        document.forms1.submit();
+    }
     
-    function passwordChange(){
+    function passwordChange(event){
     	if($('#email').val().length > 0 ){
     		$('#emailLabel').css("display","none");
     	}else{
     		$('#emailLabel').css("display","block");
+    	}
+    	
+    	if ( event.keyCode == 13){
+    		fn_login();
     	}
     }
     

@@ -347,4 +347,16 @@ public class GroupController {
         LOGGER.debug("GroupController groupMemberDelete 종료");
         return mv;
     }
+    
+    @PostMapping("/groupMemberAcceptCancel")
+    public ModelAndView groupMemberAcceptCancel(@RequestBody Map<String,String> params) throws JsonProcessingException, ApiException{
+    	ModelAndView mv= new ModelAndView();
+        LOGGER.debug("GroupController groupMemberAcceptCancel 시작");
+        String rtn = restService.groupMemberAcceptCancel(params);
+        mv.addObject("data",rtn);
+        mv.setViewName("jsonView");
+        LOGGER.debug("GroupController groupMemberAcceptCancel 종료");
+        return mv;
+    	
+    }
 }

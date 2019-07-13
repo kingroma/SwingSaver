@@ -60,7 +60,7 @@
                             <br/> 서비스 유효일자:19-10-01</p>
                     </div>
                     <ul>
-                        <li><a class="active" href="#">개인정보수정</a></li>
+                        <li><a class="active" href="/web/mypage">개인정보수정</a></li>
                         <li><a href="#">포인트 구매/이용료결제</a></li>
                         <li><a href="#">결제내역 조회</a></li>
                         <li><a href="#">서비스 변경</a></li>

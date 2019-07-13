@@ -57,4 +57,6 @@ public interface RestService {
     public String passwordProcess(Map<String, String> params) throws JsonProcessingException, ApiException;
     
     public String imgProfileInsert(Map<String,String> params) throws JsonProcessingException, ApiException;
+    
+    public String groupMemberAcceptCancel(Map<String,String> params) throws JsonProcessingException, ApiException;
 }

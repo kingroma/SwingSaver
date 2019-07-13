@@ -8,7 +8,9 @@
 
 <body>
     <%@include file="/WEB-INF/views/web/inc/navi.jsp"%>
-
+	<input type="hidden" id="selgrpuserId">
+	<input type='hidden' id='membertype'>
+	
     <section class="container no-padding">
         <article class="col-xs-12" style="padding: 0;">
             <div class="content-nav col-xs-3">
@@ -61,7 +63,7 @@
 <!--                멤버삭제팝업은 경우에 따라 g_mem_01_01, g_mem_01_02  -->
                 <button type="button" id="memberdelete" class="sea-btn del-btn">멤버삭제</button>
                 <div class="rig-btn-wrap">
-                    <button type="button" data-toggle="modal" data-target="#g_mem_01_02" class="sea-btn add-btn">승인/취소</button>
+                    <button type="button" id='memberacceptcancel' class="sea-btn add-btn">승인/취소</button>
                 </div>
 
                 <div class="col-xs-12 table-box">
@@ -92,7 +94,7 @@
                             <tbody>
                                 <c:forEach var="userVo" items="${memberList}" varStatus="status">
                                     <tr>
-                                        <td><input type="checkbox" id="userid" class="userid" value="${userVo.userid},${userVo.lastname}${userVo.firstname}"></td>
+                                        <td><input type="checkbox" id="userid" membertype='${userVo.membertype }' class="userid" value="${userVo.userid},${userVo.lastname}${userVo.firstname}"></td>
                                         <td>${userVo.lastname}${userVo.firstname}</td>
                                         <td>${userVo.email}</td>
                                         <td>${userVo.dob}</td>
@@ -130,8 +132,8 @@
                                                     취소
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <button type="button" class="sea-btn add-btn" id="accept">승인</button> /
-                                                    <button type="button" class="sea-btn add-btn" id="cancle">취소</button>
+                                                    <button type="button" class="sea-btn add-btn" id="" onclick="javascript:fn_accept('${userVo.userid}','${userVo.membertype}')">승인</button> /
+                                                    <button type="button" class="sea-btn add-btn" id="" onclick="javascript:fn_cancel('${userVo.userid}','${userVo.membertype}')">취소</button>
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
@@ -166,7 +168,7 @@
 
                     </div>
                     <form id="modalFrm">
-                        <input type="hidden" id="selgrpuserId">
+                        
                     </form>
                     <p>해당 멤버를 정말로 삭제하시겠습니까?</p>
                     <!-- 모달 내용 -->
@@ -186,6 +188,45 @@
         </div>
     </div>
 
+	<!-- 승인 취소 처리 MODAL -->
+	<div class="modal fade" id="grpmemberacptcnl" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog add-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- 모달 이름 -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title text-center" id="exampleModalLabel">그룹멤버 삭제</h4>
+
+                </div>
+                <div class="modal-body text-center">
+                    <div id="acptcnlgrp">
+
+                    </div>
+                    <form id="modalFrm">
+                        
+                    </form>
+                    <p>승인 / 취소를 하시겠습니까?</p>
+                    <!-- 모달 내용 -->
+                </div>
+                <div class="modal-footer">
+                    <!-- data-dismiss="modal"를 통해 모달을 닫을수 있다. -->
+                    <div class="col-md-12">
+                        <div class="mo-pa col-md-6 ">
+                            <button type="button" class="modal-btn btn-secondary" style='padding:2px;' id="accept" >승인</button>
+                        </div>
+                        <div class="mo-pa col-md-6 " style=''>
+                            <button type="button" class="modal-btn btn-secondary" style='padding:2px' id="cancel">취소</button>
+                        </div>  
+                        <div class="mo-pa col-md-12 ">
+                            <button type="button" class="modal-btn" data-dismiss="modal">닫기</button>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <%@include file="/WEB-INF/views/web/inc/footer.jsp"%>
@@ -231,11 +272,116 @@
             obj.userid = userid;
 
             var jsonData = JSON.stringify(obj);
-            alert(userid);
             AjaxCall("/group/groupMemberDelete","POST",jsonData);
 
         });
 
+        
+        $('#memberacceptcancel').click(function() {
+            var chklen = $("input[id=userid]:checkbox:checked").length;
+            var _text = "";
+            var _idtext = "";
+           	var _membertype = ""; 
+           
+            if(chklen == 0){
+                alert("승인/취소할 그룹 멤버를 선택해주세요");
+                return;
+            }else{
+                var i = 1;
+                $('#userid:checked').each(function() {
+                    _idtext = _idtext+$(this).val().split(",")[0];
+                    _text= _text+$(this).val().split(",")[1];
+                    _membertype = _membertype + $(this).attr("membertype")
+                    if(i<chklen){
+                        _idtext =_idtext+",";
+                        _text= _text+"</br>";
+                        _membertype = _membertype + ",";
+                    }
+                    i++;
+                });
+                $("#grpmemberacptcnl").modal("show");
+                $("#acptcnlgrp").html(_text);
+                $('#membertype').val(_membertype);
+                $("#selgrpuserId").val(_idtext);
+            }
+        });
+        
+        $("#accept").click(function(){
+            var groupid = ${sessionScope.login.groupid};
+            var userid = $("#selgrpuserId").val();
+			var membertype = $('#membertype').val();
+
+            var obj = new Object();
+            obj.groupid = groupid;
+            obj.userid = userid;
+            obj.status = 'Y';
+			obj.membertype = membertype;
+            
+            var jsonData = JSON.stringify(obj);
+            
+            console.dir(obj);
+            AjaxCall("/group/groupMemberAcceptCancel","POST",jsonData);
+
+        });
+        
+        $("#cancel").click(function(){
+            var groupid = ${sessionScope.login.groupid};
+            var userid = $("#selgrpuserId").val();
+            var membertype = $('#membertype').val();
+
+            var obj = new Object();
+            obj.groupid = groupid;
+            obj.userid = userid;
+            obj.status = 'N';
+            obj.membertype = membertype;
+            var jsonData = JSON.stringify(obj);
+            
+            console.dir(obj);
+            AjaxCall("/group/groupMemberAcceptCancel","POST",jsonData);
+
+        });
     });
+    
+    function fn_accept(userid,membertype){
+    	var msg = '승인하시겠습니까?' 
+    	var groupid = ${sessionScope.login.groupid};
+
+        var obj = new Object();
+        obj.groupid = groupid;
+        obj.userid = userid;
+        obj.membertype = membertype;
+        obj.status = 'Y'
+
+        var jsonData = JSON.stringify(obj);
+        if ( confirm (msg) ){
+        	console.dir(obj);
+        	AjaxCall("/group/groupMemberAcceptCancel","POST",jsonData);	
+        }
+        
+    }
+    function fn_cancel(userid,membertype){
+    	var msg = '취소하시겠습니까?'
+    	
+    	var groupid = ${sessionScope.login.groupid};
+
+        var obj = new Object();
+        obj.groupid = groupid;
+        obj.userid = userid;
+        obj.membertype = membertype;
+        obj.status = 'N'
+	
+        
+        
+        var jsonData = JSON.stringify(obj);
+
+        
+        if ( confirm (msg) ){
+        	console.dir(obj);
+        	if ( AjaxCall("/group/groupMemberAcceptCancel","POST",jsonData) ) {
+        		location.reload();	
+        	}
+        	
+        }
+    }
 </script>
 </html>

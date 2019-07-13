@@ -12,6 +12,7 @@
 
     <div class="form-page joinus-page">
         <form>
+        	<input type='input' id='userId' name='userId' value='${userInfo.id}'/>
             <h1 class="text-center">비밀번호 재설정</h1>
             <input type="hidden" id="confirmCode" value="${confirmCode}">
             <div class="question">
@@ -39,6 +40,7 @@
     $(document).ready(function(){
         $("#passwordReset").click(function(){
             var confirmCode = $("#confirmCode").val();
+            var userId = $('#userId').val();
             var pwd = $("#pwd").val();
             var pwdConfirm = $("#pwdConfirm").val();
 
@@ -55,10 +57,12 @@
             var obj = new Object();
             obj.confirmCode = confirmCode;
             obj.password = pwdConfirm;
+            obj.userid = userId.val();
 
-
+			
+            //http://localhost:8888/web/user/resetpassword/A1PNC89Q6V5TJWJ
             var jsonData = JSON.stringify(obj);
-            AjaxCall("/web/passwordReset","POST",jsonData);
+            AjaxCall("/web/user/passwordProcess","POST",jsonData);
         });
     });
 </script>

@@ -404,4 +404,47 @@ public class RestServiceImpl implements RestService {
     	return null;
     }
     
+    /**
+     * 그룹 승인 취소 요청
+     * */
+    public String groupMemberAcceptCancel(Map<String,String> params)throws JsonProcessingException, ApiException{
+    	String[] useridList = params.get("userid").split(",");
+        String[] membertypeList = params.get("membertype").split(",");
+        String groupid = params.get("groupid");
+        String status = params.get("status");
+        
+    	ObjectMapper mapper = new ObjectMapper();
+        String rtnJson = "";
+        
+        //https://www.swingsaver.co.kr/ords/swing/saver/groupmember
+        if(params.get("userid").indexOf(",") == -1) {
+        	Map<String,Object> sendMap = new HashMap<String, Object>();
+        	sendMap.put("groupid",groupid);
+            sendMap.put("status",status);
+            sendMap.put("userid",Long.parseLong(params.get("userid")));
+            sendMap.put("membertype", params.get("membertype"));
+            
+            rtnJson = sendMessage.sendHttpsStr(mapper.writeValueAsString(sendMap), "/ords/swing/saver/groupmember", "PUT", "application/json", true);
+        }else{
+            
+             
+            Map<String,Object> sendMap = new HashMap<String, Object>();
+            int i = 0 ;
+            for (String str: useridList) {
+                sendMap.clear();
+                
+                sendMap.put("groupid",groupid);
+                sendMap.put("status",status);
+                sendMap.put("userid",Long.parseLong(str));
+                sendMap.put("membertype", membertypeList[i]);
+                
+                rtnJson = sendMessage.sendHttpsStr(mapper.writeValueAsString(sendMap), "/ords/swing/saver/groupmember", "PUT", "application/json", true);
+                i ++;
+            }
+
+        }
+        LOGGER.debug("그룹 승인 취소 파라미터:{},응답:{}",params.toString(),rtnJson);
+
+        return rtnJson;
+    }
 }
