@@ -136,7 +136,7 @@ public class RestServiceImpl implements RestService {
         ModelAndView mv = new ModelAndView();
         ObjectMapper mapper = new ObjectMapper();
         Map<String,String> map = new HashMap<String, String>();
-        map.put("confirmcode",key);
+        map.put("confirmCode",key);
 
         String rtnJson = "";
         rtnJson = sendMessage.sendHttpsStr(mapper.writeValueAsString(map),"/ords/swing/saver/user","POST", "application/json",true);
@@ -362,7 +362,7 @@ public class RestServiceImpl implements RestService {
         ObjectMapper mapper = new ObjectMapper();
         String rtnJson = "";
 
-        rtnJson = sendMessage.sendHttpsStr(mapper.writeValueAsString(params),"/ords/swing/saver/password/password","PUT", "application/json",true);
+        rtnJson = sendMessage.sendHttpsStr(mapper.writeValueAsString(params),"/ords/swing/saver/password","POST", "application/json",true);
 
         LOGGER.debug("비밀번호 재설정 완료 파라미터:{},응답:{}",params.toString(),rtnJson);
 
