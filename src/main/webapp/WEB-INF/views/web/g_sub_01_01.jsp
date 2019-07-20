@@ -74,7 +74,9 @@
                                 <select class="que-val" id="userid">
                                     <option value="" selected>관리자를 선택하세요</option>
                                     <c:forEach var="grpmembers" items="${memberList}" varStatus="status" >
-                                        <option value="${grpmembers.userid}">${grpmembers.lastname}${grpmembers.firstname}(${grpmembers.dob})</option>
+                                    	<c:if test='${grpmembers.status == "Y" }'>
+                                    		<option value="${grpmembers.userid}">${grpmembers.lastname}${grpmembers.firstname}(${grpmembers.dob})</option>
+                                    	</c:if>
                                     </c:forEach>
                                 </select>
                                 <%--<input type="text" placeholder="관리자 이름입력" required />

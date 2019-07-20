@@ -192,7 +192,7 @@
 
             var jsonData = JSON.stringify(obj);
 
-            AjaxCall("/group/subgroup/subGroupDelete","POST",jsonData);
+            AjaxCall("/group/subgroup/subGroupDelete","POST",jsonData,"/group/subgroup");
 
         });
     });
