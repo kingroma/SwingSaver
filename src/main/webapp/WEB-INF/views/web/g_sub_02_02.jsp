@@ -75,16 +75,17 @@
                                 <select class="que-val" id="userid">
                                     <option value="" selected>관리자를 선택하세요</option>
                                     <c:forEach var="grpmembers" items="${memberList}" varStatus="status" >
-                                        <c:set var="name" value="${grpmembers.lastname}${grpmembers.firstname}"/>
-                                        <c:choose>
-                                            <c:when test="${sname eq  name}">
-                                                <option value="${grpmembers.userid}" selected>${name}(${grpmembers.dob})</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${grpmembers.userid}">${name}(${grpmembers.dob})</option>
-                                            </c:otherwise>
-                                        </c:choose>
-
+                                    	<c:if test='${grpmembers.status == "Y" }'>
+	                                        <c:set var="name" value="${grpmembers.lastname}${grpmembers.firstname}"/>
+	                                        <c:choose>
+	                                            <c:when test="${sname eq  name}">
+	                                                <option value="${grpmembers.userid}" selected>${name}(${grpmembers.dob})</option>
+	                                            </c:when>
+	                                            <c:otherwise>
+	                                                <option value="${grpmembers.userid}">${name}(${grpmembers.dob})</option>
+	                                            </c:otherwise>
+	                                        </c:choose>
+										</c:if>
                                     </c:forEach>
                                 </select>
                                 <%--<div class="inquiry-box">
