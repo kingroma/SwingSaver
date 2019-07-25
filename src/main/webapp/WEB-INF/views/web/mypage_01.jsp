@@ -103,7 +103,7 @@
 
                                 <input class="tex-01 que-val" type="text" id="year" value="${fn:substring(dobStr,0,4) }" required />
                                 <input class="tex-03 que-val" type="text" id="month" value="${fn:substring(dobStr,4,6) }" required />
-                                <input class="tex-03 que-val" type="text" id="day" value="${fn:substring(dobStr,6,8) }" required />
+                                <input class="tex-03 tex-04 que-val" type="text" id="day" value="${fn:substring(dobStr,6,8) }" required />
                             </div>
                             <div class="question">
                                 <p>전화번호</p>

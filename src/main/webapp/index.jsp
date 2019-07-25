@@ -12,7 +12,7 @@
 <nav id="topNav" class="navbar navbar-default dropdownmenu">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand page-scroll" href="/"><img src="/image/logo.png" class="header-logo" width="100%"></a>
+            <a class="navbar-brand page-scroll" href="/"><img src="/image/logo-01.svg" class="header-logo" width="100%"></a>
         </div>
         <div class="navbar-collapse collapse sub-navwrap" id="bs-navbar">
             <div class="dropdown">
@@ -63,7 +63,7 @@
 <!-- small page -->
 <nav class="dg-hd-mo hidden-lg">
     <h1 class="dg-hd-mo-logo-area">
-        <a href="/"><img src="/image/logo.png" class="header-logo" width="100%"></a>
+        <a href="/"><img src="/image/logo-01.svg" class="header-logo" width="100%"></a>
     </h1>
     <!--메뉴전체 -->
     <nav class="dg-hd-mo-menu-panel" style=''>
@@ -160,15 +160,14 @@
     }
 </script>
 <section id="fir">
-    <div class="main-ban">
-        <div class="main-title">
-            <p class="tit-point">
-                <I>Everywhere Everytime, Swingsaver</I>
-            </p>
-            <h1>언제 어디서나 스윙분석!</h1>
-            <p class="tit-p">언제 어디서나 레슨 정보공유도 할 수 있는 스윙세이버!</p>
-            <div class="ban-btn"><a href="#sec" class="ban-btn-01">VIEW MORE</a><a href="#" class="ban-btn-02">PRODUCT</a></div>
+    <div class="main-bn-1920">
+        <img src="./image/mainban1.png" width="100%">
+    </div>    
+    <div class="main-bn-1300">
+        <img src="./image/mainban2.png" width="100%">
         </div>
+    <div class="main-bn-750">
+        <img src="./image/mainban3.png" width="100%">
     </div>
 
 </section>
@@ -218,10 +217,10 @@
 <section id="fou">
     <div class="main-pro col-md-12">
         <div class="col-md-6 product-01">
-            <img src="/image/tablet-01.png" width="100%">
+                <img src="image/tablet-01.png" width="100%">
         </div>
         <div class="col-md-6 product-info-01">
-            <img src="/image/icon-01.png">
+                <img src="image/icon-01.png">
             <h4>Scientific Analysis</h4>
             <h1>간편하고 정밀한 분석력!</h1>
             <p>Edge Device로부터 생성된 데이터와 영상분석 툴을 연동한 정밀한 동작 분석 플랫폼입니다.<br/>또한 Edge Device는 장비에 쉽게 장착할 수 있어 사용이 간편합니다.
@@ -230,23 +229,28 @@
         </div>
     </div>
     <div class="main-pro col-md-12">
+           
+            <div class="col-md-6 product-02 mobile-tab">
+                <img src="image/tablet-02.png" width="100%">
+            </div>           
+           
         <div class="col-md-6  product-info-01 product-info-02">
-            <img src="/image/icon-02.png">
+                <img src="image/icon-02.png">
             <h4>Bigdata Analysis</h4>
             <h1>빅데이터를 활용한 정보 제공!</h1>
             <p>생성된 빅데이터를 활용하여 지속가능한 교정교육 및 효과적인 분석이 가능합니다.<br/>스윙세이버는 당신만의 특별한 스윙 분석을 해드립니다.</p>
             <a href="#"><U>MORE INFO +</U></a>
         </div>
-        <div class="col-md-6 product-02">
-            <img src="/image/tablet-02.png" width="100%">
+            <div class="col-md-6 product-02 pc-tab">
+                <img src="image/tablet-02.png" width="100%">
         </div>
     </div>
     <div class="main-pro col-md-12">
-        <div class="col-md-6">
-            <img src="/image/tablet-03.png" width="100%">
+            <div class="col-md-6 product-02">
+                <img src="image/tablet-03.png" width="100%">
         </div>
         <div class="col-md-6 product-info-01">
-            <img src="/image/icon-03.png">
+                <img src="image/icon-03.png">
             <h4>High Quality Lesson</h4>
             <h1>프로골퍼에게 1:1레슨!</h1>
             <p>다양한 조건을 통해 만족하는 가격과 양질의 교육자에게 원격레슨이 가능합니다.<br/>직관적인 화면을 통한 레슨 및 클라우스 서비스가 제공됩니다.

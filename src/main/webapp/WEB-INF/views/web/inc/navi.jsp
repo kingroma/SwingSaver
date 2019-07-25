@@ -10,7 +10,7 @@
 <nav id="topNav" class="navbar navbar-default dropdownmenu">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand page-scroll" href="/"><img src="/image/logo.png" class="header-logo" width="100%"></a>
+            <a class="navbar-brand page-scroll" href="/"><img src="/image/logo-01.svg" class="header-logo" width="100%"></a>
         </div>
         <div class="navbar-collapse collapse sub-navwrap" id="bs-navbar">
             <div class="dropdown">
@@ -60,7 +60,7 @@
 <!-- small page -->
 <nav class="dg-hd-mo hidden-lg">
     <h1 class="dg-hd-mo-logo-area">
-        <a href="/"><img src="/image/logo.png" class="header-logo" width="100%"></a>
+        <a href="/"><img src="/image/logo-01.svg" class="header-logo" width="100%"></a>
     </h1>
     <!--메뉴전체 -->
     <nav class="dg-hd-mo-menu-panel" style=''>

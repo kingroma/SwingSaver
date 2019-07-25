@@ -18,7 +18,7 @@
             <div class="email-q-01">
                 <p><span></span>이메일</p>
                 <input type="text" id="email01" placeholder="이메일"  />@
-                <input type="text" name="stremail02" id="stremail02" readonly value="">
+                <input type="text" class="email-input-02" name="stremail02" id="stremail02" readonly value="">
                 <select class="que-val" id="selemail02" name="grouptype" onChange="selemail(this)">
                     <option value="" selected>선택하세요</option>
                     <option value="naver.com">naver.com</option>
@@ -47,7 +47,7 @@
                 <p><span></span>생년월일</p>
                 <input class="tex-01" type="text" id="year" name="year" placeholder="년도(4글자)"  />
                 <input class="tex-03" type="text" id="month" name="month" placeholder="월"  />
-                <input class="tex-03" type="text" id="day" name="day" placeholder="일"  />
+                <input class="tex-03 tex-04" type="text" id="day" name="day" placeholder="일"  />
             </div>
             <%--<div class="question">
                 <p>전화번호</p>
