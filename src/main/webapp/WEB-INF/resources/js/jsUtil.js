@@ -1,3 +1,62 @@
+var loadingBarWindth = 100;
+var loadingBarHeight = 100;
+
+function fn_loadingBarResize(){
+	var target = $('#loadingBar');
+	var windowHeight = $(window).height();
+	var windowWidth = $(window).width();
+	
+	console.dir(loadingBarWindth +'/'+loadingBarHeight)
+	
+	var css = {
+		'margin-left': (windowWidth/2 - loadingBarWindth/2) + 'px' ,
+		'margin-top': (windowHeight/2 - loadingBarHeight/2) + 'px'
+	}
+	
+	target.css(css);
+}
+function fn_getLodingBar(){
+	var divCss = {
+		'position': 'fixed',
+		'width': '100%',
+		'height': '100%',
+		'background-color': '#e2e2e2',
+		'opacity': '1',
+		'z-index': '99',
+		'top': '0%',
+		'left': '0%',
+		'opacity': '0.5',
+		'display':'none'
+	}
+	var imgCss = {
+		'opacity': '1.0',
+		'width': '100px',
+		'height': '100px'
+	}
+
+	var div = $('<div id="loadingBarDiv"></div>').css(divCss);
+	var img = $('<img id="loadingBar" src="/image/loading.gif"></img>').css(imgCss);
+	div.append(img);
+	return div;
+}
+
+$(document).ready(function(){
+	$('body').append(fn_getLodingBar());
+	
+	fn_loadingBarResize();
+	
+	$( window ).resize( function() {
+		fn_loadingBarResize();
+	});
+})
+.ajaxStart(function(){
+	$('#loadingBarDiv').show(); 
+})
+.ajaxStop(function(){
+	setTimeout(function(){
+		$('#loadingBarDiv').hide();
+	},1000);
+});
 
 $(function(){
     $(".phone-number-check").on('keydown', function(e){
@@ -181,3 +240,4 @@ function birthChk(birth) {
         return false;
     }
 }
+
