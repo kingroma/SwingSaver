@@ -159,8 +159,8 @@
             obj.groupname = groupname;
             obj.userid = userid;
             obj.quota = quota;
-            obj.startdate = startdate;
-            obj.enddate = enddate;
+            obj.startdate = replaceAll(startdate,'-','');
+            obj.enddate = replaceAll(enddate,'-','');
 
 
             var jsonData = JSON.stringify(obj);
@@ -169,6 +169,9 @@
 
         });
     });
-
+	
+    function replaceAll(str, searchStr, replaceStr) {
+    	return str.split(searchStr).join(replaceStr);
+    }
 </script>
 </html>
