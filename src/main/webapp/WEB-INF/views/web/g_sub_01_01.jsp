@@ -117,6 +117,11 @@
 
     <!-- Footer -->
 </body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+
 <script>
 
     $(document).ready(function(){
@@ -168,10 +173,34 @@
             AjaxCall("/group/subgroup/subGroupInsert","POST",jsonData,'/group/subgroup/subGrpDetail');
 
         });
+        
+        fn_datepicker();
     });
 	
     function replaceAll(str, searchStr, replaceStr) {
     	return str.split(searchStr).join(replaceStr);
+    }
+    
+    function fn_datepicker(){
+		$( "#startdate,#enddate" ).datepicker({
+            
+            dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
+            dateFormat:'yy-mm-dd',
+            monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+        });
+
+       $('#startdate').datepicker("option", "maxDate", $("#enddate").val());
+       $('#startdate').datepicker("option", "onClose", function (selectedDate){
+           $("#enddate").datepicker( "option", "minDate", selectedDate );
+           });
+
+       $('#enddate').datepicker();
+       $('#enddate').datepicker("option", "minDate", $("#startdate").val());
+       $('#enddate').datepicker("option", "onClose", function (selectedDate){
+           $("#startdate").datepicker( "option", "maxDate", selectedDate );
+          });
+
     }
 </script>
 </html>

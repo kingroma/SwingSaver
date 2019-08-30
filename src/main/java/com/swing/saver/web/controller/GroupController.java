@@ -274,8 +274,8 @@ public class GroupController {
         subgrpmap.put("subgroupid",request.getParameter("subgroupid"));
         subgrpmap.put("quota",request.getParameter("quota"));
         subgrpmap.put("userid",request.getParameter("userid"));
-        subgrpmap.put("startdate",request.getParameter("startdate"));
-        subgrpmap.put("enddate",request.getParameter("enddate"));
+        subgrpmap.put("startdate",changeDateToFormat(request.getParameter("startdate")));
+        subgrpmap.put("enddate",changeDateToFormat(request.getParameter("enddate")));
         subgrpmap.put("lastname",request.getParameter("lastname"));
         subgrpmap.put("firstname",request.getParameter("firstname"));
 
@@ -358,5 +358,12 @@ public class GroupController {
         LOGGER.debug("GroupController groupMemberAcceptCancel 종료");
         return mv;
     	
+    }
+    
+    private String changeDateToFormat(String dt){
+    	if ( dt != null && dt.length() == 8 ){
+    		dt = dt.substring(0, 4) + "-" + dt.substring(4,6) + "-" + dt.substring(6,8);
+    	}
+    	return dt ; 
     }
 }
